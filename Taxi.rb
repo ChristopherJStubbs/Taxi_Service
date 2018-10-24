@@ -35,19 +35,17 @@ class Taxi_Service
     end
   end
   def send_taxi
-    i = 0
     loop do
-      assign_taxi(@taxi_queue[i])
-      i += 1
-    break if(@rider_queue == [] || i==@taxi_queue.length)
+      assign_taxi(@taxi_queue.shift())
+      break if(@rider_queue == [] || @taxi_queue.length == 0)
     end
   end
 end
 
 my_service = Taxi_Service.new
-taxi1 = Taxi.new("Rikki")
-taxi2 = Taxi.new("Eric")
-taxi3 = Taxi.new("Evan")
+taxi1 = Taxi.new("Rikki",7)
+taxi2 = Taxi.new("Eric",4)
+taxi3 = Taxi.new("Evan",5)
 
 my_service.add_rider("Kristen")
 my_service.add_rider("Misun")
