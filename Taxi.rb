@@ -26,12 +26,14 @@ class Taxi_Service
   def add_rider(rider)
     @rider_queue << rider
   end
-  def add_taxi(taxi)
-    @taxi_queue << taxi
+  def add_taxi(vehicle)
+    if vehicle.respond_to? :pickup
+      @taxi_queue << vehicle
+    end
   end
   def assign_taxi(taxi)
     taxi.seats.times do
-      taxi.rider_list << @rider_queue.slice!(0,1)
+      taxi.pickup @rider_queue.slice!(0,1)
     end
   end
   def send_taxi
@@ -68,6 +70,3 @@ p my_service.rider_queue
 my_service.send_taxi
 puts my_service.taxi_queue
 p my_service.rider_queue
-
-
-#slice taxis to taxi queue
